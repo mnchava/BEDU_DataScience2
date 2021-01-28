@@ -25,10 +25,10 @@ library(dplyr)
 
 dbListFields(DBShiny, "CountryLanguage")
 
-hispanohablantes <- dbGetQuery(DBShiny, 
+hablahispana <- dbGetQuery(DBShiny, 
            "select * from CountryLanguage where Language = 'Spanish'")
 
-head(hispanohablantes)
+head(hablahispana)
 
 #Realizar una gráfica con ggplot que represente este porcentaje de tal modo
 #que en el eje de las Y aparezca el país y en X el porcentaje, y que
@@ -38,11 +38,10 @@ head(hispanohablantes)
 install.packages("ggplot2")
 library(ggplot2)
 
-ggplot(hispanohablantes, aes(x = CountryCode, y = Percentage, fill = IsOfficial)) + 
-  geom_bin2d() +
-  coord_flip()
+ggplot(hablahispana, aes(y = CountryCode, x = Percentage, fill = IsOfficial)) + 
+  geom_bin2d()
 
 #Una vez hecho esto hacer el commit y push para mandar tu archivo al
 #repositorio de Github Reto_Sesion_7
 
-
+dbDisconnect(DBShiny)
